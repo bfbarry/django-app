@@ -14,13 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-# add include for custom URL config in playground folder
+# add include for custom URL config in bucket folder
 import debug_toolbar
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('playground/', include('playground.urls')),
+    path('bucket/', include('bucket.urls')),
+    path('', include('layout.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 
 ]

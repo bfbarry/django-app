@@ -7,7 +7,7 @@ def calc():
     y = 2
     return x
 
-def say_hello(request):
+def say_hello(request): #or just *args, **kwargs
     x = calc()
     return render(request, 'hello.html', {'name':'bri'})
     # return HttpResponse('Hey')
