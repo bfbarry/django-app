@@ -1,4 +1,4 @@
-"""project1 URL Configuration
+"""bucket_list URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -20,8 +20,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('layout.urls')), # index
     path('bucket/', include('bucket.urls')),
-    path('', include('layout.urls')),
     path('__debug__/', include(debug_toolbar.urls)),
 
 ]
