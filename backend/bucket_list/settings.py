@@ -67,7 +67,7 @@ INTERNAL_IPS = [
 ]
 
 ROOT_URLCONF = 'bucket_list.urls'
-
+# os.path.join(BASE_DIR, "templates")
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

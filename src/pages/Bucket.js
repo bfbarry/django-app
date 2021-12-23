@@ -11,8 +11,8 @@ export default function Bucket() {
   const {id} = useParams();
 
   useEffect(() => {
-    // fetch(`/bucket/${id}`)
-    fetch(`http://127.0.0.1:8000/bucket/${id}`)
+    fetch(`/bucket/${id}`)
+    // fetch(`http://127.0.0.1:8000/bucket/${id}`)
 
     .then(res => res.json())
     .then(

@@ -1,5 +1,6 @@
 from django.db import models as m
 
+
 class Tag(m.Model):
     name = m.CharField(max_length=30)
 
@@ -16,6 +17,9 @@ class Bucket(m.Model):
     # category = m.CharField(max_length=30,
     #                         choices=CATEGORY_CHOICES)
     description = m.TextField()
+
+    #one to many
+    tags = m.ManyToManyField(Tag)
 
     def to_dict(self):
         return {

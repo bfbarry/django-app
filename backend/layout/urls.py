@@ -3,5 +3,5 @@ from . import views
 
 #URLConf module
 urlpatterns = [
-    path('', views.index)
+    path('', views.index, name='index')
 ]
