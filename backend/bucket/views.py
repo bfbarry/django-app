@@ -1,11 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse, HttpResponseRedirect
 from django.core import serializers
+from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import Bucket, Tag
+from .models import Bucket, Tag, Goal
 from .forms import BucketForm
-# Create your views here.
 
+### helper functions ###
+def query2dict(obj):
+    "returns list of objects represented as dictionary"
+    return  json.loads(serializers.serialize('json', obj.objects.all()))
+
+### views ###
+@csrf_exempt
 def create_bucket(request):
     """Create new bucket list"""
     form = BucketForm(request.POST or None)
@@ -19,6 +26,9 @@ def create_bucket(request):
                 tag = Tag(name=tag_name)
                 tag.save()
             bucket.tag_set.add(tag)
+        for goal_text in form.goals:
+            g = Goal(text=goal_text, bucket=x)
+            g.save()
         return redirect(f'/bucket/{bucket.id}')
     return render(request, 'create_project.html', {'form':form})
     return JsonResponse(form.to_dict())
@@ -28,9 +38,6 @@ def read_bucket(request, id): #or just *args, **kwargs
     obj = get_object_or_404(Bucket, id=id)
     return JsonResponse(obj.to_dict())
 
-def query2dict(obj):
-    "returns list of "
-    return  json.loads(serializers.serialize('json', obj.objects.all()))
     
 def read_buckets(request): #or just *args, **kwargs
     """list for all buckets list

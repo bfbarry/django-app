@@ -25,10 +25,38 @@ export default function Bucket() {
       setError(error);
       }
     )
-  }, [id]) //should id be passed in here?
+  }, [id])
+
+  const [NisLoaded, NsetIsLoaded] = useState(false);
+  const [Nerror, NsetError] = useState(null);
+  const [buckets, setBuckets] = useState([]);
+
+  useEffect(() => {
+    fetch(`/bucket/all`)
+    .then(res => res.json())
+    .then(
+      (data) => {
+        NsetIsLoaded(true);
+        setBuckets(data);
+      },
+      (error) => {
+      NsetIsLoaded(true);
+      NsetError(error);
+      }
+    )
+  }, [])
+
   return(
     <div>
       <pre>{JSON.stringify(bucket)}</pre>
+      <ul>
+        <p>My Buckets</p>
+
+        {buckets.buckets && buckets.buckets.map (function (b) {
+            var bcolor = (b.id == id) ? '#32a852' : 'rgb(140, 98, 199)';
+            return <Link to={`/bucket/${b.id}`}  className="btn btn-sm" style={{color:'white', backgroundColor:bcolor, marginLeft:'5px'}} key={b.id}> {b.title}</Link>
+        })}
+        </ul>
     </div>
   )
 }
